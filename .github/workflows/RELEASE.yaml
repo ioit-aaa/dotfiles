@@ -1,3 +1,10 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
 jobs:
   changelog:
     name: Generate changelog
@@ -18,18 +25,15 @@ jobs:
           args: -vv --latest --strip header
         env:
           OUTPUT: CHANGES.md
-          GITHUB_REPO: ${{ github.repository }}
 
-      # use release body in the same job
       - name: Upload the binary releases
         uses: svenstaro/upload-release-action@v2
         with:
           file: binary_release.zip
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref }}
+          tag: ${{ github.ref_name }}
           body: ${{ steps.git-cliff.outputs.content }}
 
-  # use release body in another job
   upload:
     name: Upload the release
     needs: changelog
@@ -39,5 +43,5 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref }}
+          tag: ${{ github.ref_name }}
           body: ${{ needs.changelog.outputs.release_body }}
