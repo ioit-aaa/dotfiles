@@ -1,7 +1,8 @@
 # dotfiles
-My personal dotfiles, specific to Linux
 
-This repository does not contain any personal privacy information.
+Personal dotfiles for Linux.
+
+This repository does not contain personal or sensitive information.
 
 > [!WARNING]
-> Unless you know what you're doing, it's best not to overwrite your original configuration lightly.
+> Do not overwrite your existing configuration unless you know exactly what you are doing.
